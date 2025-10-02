@@ -6,6 +6,8 @@ import Loader from "./component/Loader";
 import StartScreen from "./component/StartScreen";
 import Error from "./component/Error";
 import Questions from "./component/Questions";
+import Progress from "./component/Progress";
+import NextButton from "./component/NextButton";
 
 const initialState = {
   questions: [],
@@ -47,6 +49,12 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    case "nextQuestion":
+      return {
+        ...state,
+        index: state.index + 1,
+        answer: null,
+      };
     default:
       throw new Error("Action unknoen");
   }
@@ -80,11 +88,16 @@ function App() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Questions
-            questions={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Progress index={index} numQuestion={numQuestions} />
+
+            <Questions
+              questions={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
