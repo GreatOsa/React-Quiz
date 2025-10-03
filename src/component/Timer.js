@@ -15,8 +15,8 @@ export default function Timer({ secondsRemaining, dispatch }) {
 
   return (
     <div className="timer">
-      {mins < 10 ? "" : 0}
-      {mins} :{secs < 10 ? "" : 0}
+      {mins < 10 ? 0 : ""}
+      {mins} :{secs < 10 ? 0 : ""}
       {secs}{" "}
     </div>
   );
